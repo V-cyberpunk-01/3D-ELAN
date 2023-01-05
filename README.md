@@ -35,15 +35,9 @@ This is a PyTorch implementation of 3D-ELAN model and dicussion experiments prop
 
 ## CSA Algorithm
 
-<<<<<<< HEAD
 You can get shell positions from a Crystal via this code.This code requires a target Crystal .cif file.And use command like `python.py csa.py -f ./cif/Nb5Si3.cif` to run it.And you will get the corresponding shell positions,as well as a picture to show.  
 
-
-=======
-You can get shell positions from a Crystal via this code.This code requires a target Crystal .cif file.And use command like `python.py csa.py -f ./cif/Nb5Si3.cif` to run it.And you will get the corresponding shell positions,as well as a picture to show.
->>>>>>> 27b6e61b820adb8ddd7abe3bfcc57fd31c5ec3d4
-
-This is an example to show shell structure via CSA algorithm.
+This is an example to show shell structure via CSA algorithm in the file named as image.png.
 
 ## 3D-ELAN Model Training Results
 
