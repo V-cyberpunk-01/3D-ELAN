@@ -35,9 +35,13 @@ This is a PyTorch implementation of 3D-ELAN model and dicussion experiments prop
 
 ## CSA Algorithm
 
+<<<<<<< HEAD
 You can get shell positions from a Crystal via this code.This code requires a target Crystal .cif file.And use command like `python.py csa.py -f ./cif/Nb5Si3.cif` to run it.And you will get the corresponding shell positions,as well as a picture to show.  
 
 
+=======
+You can get shell positions from a Crystal via this code.This code requires a target Crystal .cif file.And use command like `python.py csa.py -f ./cif/Nb5Si3.cif` to run it.And you will get the corresponding shell positions,as well as a picture to show.
+>>>>>>> 27b6e61b820adb8ddd7abe3bfcc57fd31c5ec3d4
 
 This is an example to show shell structure via CSA algorithm.
 
@@ -57,7 +61,11 @@ We uploaded the results and related metrics obtained during the experimental tra
 
 ## Requirements
 
+<<<<<<< HEAD
 update in 2023-01-01, please use the newest package 
+=======
+update in 2023-01-01, please use the newest package
+>>>>>>> 27b6e61b820adb8ddd7abe3bfcc57fd31c5ec3d4
 
 ## Model training and validation
 
@@ -78,11 +86,19 @@ com_feature_path_g2 = './1018/composition/composition_feature_c_pca.csv'
 And you have to change the corresponding input node number for different datasets:
 
 | Dataset | Node num | com_size |
+<<<<<<< HEAD
 |:-------:|:--------:|:--------:|
 | (a)     | 15       | [26, 20] |
 | (b)     | 17       | [30, 20] |
 | (c)     | 10       | [16, 20] |
 | (d)     | 11       | [18, 20] |
+=======
+| --- | --- | --- |
+| (a) | 15  | [26, 20] |
+| (b) | 17  | [30, 20] |
+| (c) | 10  | [16, 20] |
+| (d) | 11  | [18, 20] |
+>>>>>>> 27b6e61b820adb8ddd7abe3bfcc57fd31c5ec3d4
 
 ## Acknowledgment
 
@@ -90,4 +106,8 @@ And you have to change the corresponding input node number for different dataset
 
     This work was sponsored by the National Key Research and Development Program of China (No. 2018YFB0704400), Key Program of Science and Technology of Yunnan Province (No. 202002AB080001-2, 202102AB080019-3),Key Research Project of Zhejiang Laboratory (No.2021PE0AC02), Key Project of Shanghai Zhangjiang National Independent Innovation Demonstration Zone(No. ZJ2021-ZD-006). The authors gratefully appreciate the anonymous reviewers for their valuable comments.
 
+<<<<<<< HEAD
 ## 
+=======
+##
+>>>>>>> 27b6e61b820adb8ddd7abe3bfcc57fd31c5ec3d4
