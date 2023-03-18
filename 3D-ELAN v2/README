@@ -1,6 +1,0 @@
-A new version of 3d-elan
-
-after you copy the dataset as in fold '3D-ELAN' , you can just use bash to run the whole code
-```
-bash 3D-ELAN.sh
-```
