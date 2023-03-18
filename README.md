@@ -59,7 +59,15 @@ update in 2023-01-01, please use the newest package
 
 ## Model training and validation
 
-------------for original code------------
+----------- for version 2 ---------------------
+
+after you copy the dataset as in fold '3D-ELAN' , you can just use bash to run the whole code
+```
+bash 3D-ELAN.sh
+```
+
+
+------------ for original code ------------
 
 We put the training section and validation section in the train.py. To ensure that our experimental results can be read in and reproduced, and run the model on different shell type , you have to change the path in train.py file from line 16 to line 24:
 
@@ -84,12 +92,6 @@ And you have to change the corresponding input node number for different dataset
 | (c)     | 10       | [16, 20] |
 | (d)     | 11       | [18, 20] |
 
------------for version 2---------------------
-
-after you copy the dataset as in fold '3D-ELAN' , you can just use bash to run the whole code
-```
-bash 3D-ELAN.sh
-```
 
 ## Acknowledgment
 
