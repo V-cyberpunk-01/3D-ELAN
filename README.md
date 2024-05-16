@@ -45,9 +45,9 @@ We uploaded the results and related metrics obtained during the experimental tra
 
 ```
 │3D-ELAN
+├──checkpoints  # One regular results for the newest experiment with 6 datasets
 ├──model_basic  # Results for the main experiment
 ├──model_(whole)cell  # Results for the discussion  experiment 1
-├──model_feature50  # Results for the discussion  experiment 2
 ├──model_ablation  # Results for the discussion  experiment 3
 ```
 
@@ -55,43 +55,11 @@ We uploaded the results and related metrics obtained during the experimental tra
 
 ## Requirements
 
-update in 2023-01-01, please use the newest package 
+update in 2023-01-01, please use the newest conda and install your env with "env.yml" file
 
 ## Model training and validation
 
------------ for version 2 ---------------------
-
-after you copy the dataset as in fold '3D-ELAN' , you can just use bash to run the whole code
-```
-bash 3D-ELAN.sh
-```
-
-
------------- for original code ------------
-
-We put the training section and validation section in the train.py. To ensure that our experimental results can be read in and reproduced, and run the model on different shell type , you have to change the path in train.py file from line 16 to line 24:
-
-```
-data_path = './1018/NbSi_c_c43_f50_k10/all_connect'  # data path for graph adj and node feature
-
-adj_all_path = str(data_path + '/adj/')  
-feature_all_path = str(data_path + '/feature/')  
-com_feature_path_g1 = './1018/composition/composition_feature_c_pca.csv' # data path for composition  
-
-adj_shell_path = str(data_path + '/adj/')  
-feature_shell_path = str(data_path + '/feature/')  
-com_feature_path_g2 = './1018/composition/composition_feature_c_pca.csv'
-```
-
-And you have to change the corresponding input node number for different datasets:
-
-| Dataset | Node num | com_size |
-|:-------:|:--------:|:--------:|
-| (a)     | 15       | [26, 20] |
-| (b)     | 17       | [30, 20] |
-| (c)     | 10       | [16, 20] |
-| (d)     | 11       | [18, 20] |
-
+In this latest version, we provide you with six commands in the ".sh" file to train the model using our recommended hyperparameters. It should be noted that this model is sensitive to parameter settings, so if you change the seed, you may need to tune the parameters several times. 
 
 ## Acknowledgment
 
