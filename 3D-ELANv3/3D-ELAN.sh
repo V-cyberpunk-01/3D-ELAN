@@ -85,3 +85,16 @@ python main.py --data_path './0916/1129_Mo/shell1&2' \
 			   --wo_extra_feature True \
 			   --random_seed 33 \
 			   --TriELAN_node_num 15 \
+
+# # dataset ceramic
+python main.py --data_path './0916/ceramic_Mn3AlN/all_connect' \
+			   --train 1 \
+			   --com_feature_path_ego './0916/composition/composition_feature_mo_pca.csv' \
+			   --com_feature_path_background './0916/composition/composition_feature_mo_pca.csv' \
+			   --TriELAN_model_save_path  './checkpoints/model_ceramic_' \
+			   --TriELAN_ffn_size 32 \
+			   --train_epoch 200 \
+			   --lr 0.000003 \
+			   --wo_extra_feature True \
+			   --random_seed 10 \
+			   --TriELAN_node_num 7 \

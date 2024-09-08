@@ -23,9 +23,9 @@ def compFeatureHelper():
     compRes = cal.transform(compObj)
 
     print(compRes['sum:atomic_number'])
-    # 290个特征
+    # 290 feature
     print(len(compRes.columns))
-    features_list = compRes.columns.tolist()[94:] # 为什么前面94维的特征没有要？
+    features_list = compRes.columns.tolist()[94:]
     print(features_list)
     compFeatures = pd.DataFrame(compRes, columns=features_list).dropna(0)
     newFeatures = pd.DataFrame(pca.fit_transform(compFeatures))
