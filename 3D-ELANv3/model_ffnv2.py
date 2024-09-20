@@ -165,7 +165,7 @@ class EncoderLayer(nn.Module):
             y = self.ffn_norm(x)
             y = self.ffn(y)
             y = self.ffn_dropout(y)
-            # 残差
+            
             x = x + y
 
         x = self.out_proj(x)
