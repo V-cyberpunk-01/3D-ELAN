@@ -212,22 +212,22 @@ class EncoderLayer(nn.Module):
 
     def forward(self, q, k, v, attn_bias=None):
         if(q.equal(k)):
-            #残差连接计算只有一个输入的时候
+            
             x = q
             y = self.self_attention_norm(x)
             y = self.self_attention(y, y, y, attn_bias)
             y = self.self_attention_dropout(y)
-            # 残差
+            
             x = x + y
 
             y = self.ffn_norm(x)
             y = self.ffn(y)
             y = self.ffn_dropout(y)
-            # 残差
+            
             x = x + y
 
         else:
-            # 有三个输入的时候不用残差
+            
             q = self.self_attention_norm(q)
             k = self.self_attention_norm(k)
             v = self.self_attention_norm(v)
@@ -236,7 +236,7 @@ class EncoderLayer(nn.Module):
             y = self.ffn_norm(x)
             y = self.ffn(y)
             y = self.ffn_dropout(y)
-            # 残差
+            
             x = x + y
 
         x = self.out_proj(x)
@@ -289,18 +289,18 @@ class TriELAN(nn.Module):
 
         self.fuse = nn.Linear(hidden_size*2,hidden_size)
 
-        # 孪生网络的注意力残差
+        # Siamese Network with attention residuals
         self.ffn_norm1 = nn.LayerNorm(hidden_size)
         self.self_attention = MultiHeadAttention(hidden_size, attention_dropout_rate, num_heads)
         self.ffn1 = FeedForwardNetwork(hidden_size,ffn_size, dropout_rate)
         self.ffn_dropout1 = nn.Dropout(dropout_rate)
 
-        # 合并之后的注意力残差
+        # Concat with attention residuals
         self.ffn_norm = nn.LayerNorm( 2 * hidden_size )
         self.ffn = FeedForwardNetwork(2* hidden_size, 2*ffn_size ,dropout_rate)
         self.ffn_dropout = nn.Dropout(dropout_rate)
 
-        # 对全局特征所作的残差连接
+        # global feature statement
         self.linear_com = nn.Linear(com_size, hidden_size)
         self.com_relu = nn.SiLU()
 
@@ -316,7 +316,6 @@ class TriELAN(nn.Module):
         self.ffn_tri = FeedForwardNetwork(hidden_size, hidden_size, dropout_rate)
         self.ffn_tri_dropout = nn.Dropout(dropout_rate)
 
-        # 对键角信息 用linear层
         self.tri_proj = nn.Sequential(
             MLPLayer(tri_shape[0]*tri_shape[1], 2 *hidden_size),
             nn.Dropout(dropout_rate),
@@ -349,7 +348,7 @@ class TriELAN(nn.Module):
         
         self.linear_dropout = nn.Dropout(dropout_rate)
 
-        # 全局 resnet2
+        # resnet2
         # self.res_all_norm2 = nn.LayerNorm(2 * hidden_size)
         self.res_all_attention2 = MultiHeadAttention(2 * hidden_size, attention_dropout_rate, num_heads)
         self.res_all_ffn2 = FeedForwardNetwork(2 * hidden_size, 2 * hidden_size, dropout_rate)
@@ -388,7 +387,9 @@ class TriELAN(nn.Module):
 
     def forward(self, batchg, batchS, batchT, attn_bias=None):
         '''
-        :param batchg(非alignn): 带有替换节点的等变图，里面包括了三个部分；图节点的特征（feature），图的邻接矩阵（adj），图的全图特征（com）
+        :param batchg(non-alignn): 
+            An equivariant graph with replacement nodes, which includes three parts: the features of the graph nodes (feature), 
+            the adjacency matrix of the graph (adj), and the global features of the graph (com).
         :param batchg(alignn):
         '''
 
@@ -438,7 +439,7 @@ class TriELAN(nn.Module):
         x3 = x3 + y3
         # # x3 = self.com_proj(x3)
 
-        # 键角 三元组 的信息矩阵 1 H
+        # The information matrix of the bond angle triple 1 H
         x4 = self.self_attention_norm_tri(x4)
         y4 = self.self_attention_tri(x4, x4, x4, attn_bias)
         # y4 = self.ffn_tri(y4)
@@ -454,42 +455,6 @@ class TriELAN(nn.Module):
         # ------------
         # readout
         # ------------
-
-        # 残差1 attention 64*3 -- 64*3
-        # 残差1 ffn 64 * 3 -- 64 * 3
-        # x = self.res_all_norm(x)
-        # # y = self.res_all_attention(y,y,y,attn_bias) # attention 残差
-        # # y = self.res_all_ffn(y)   # ffn 残差
-        # y = self.res_all_attention(x, x, x, attn_bias)
-        # y = self.res_all_dropout(y)
-        # x = x + y
-
-        # x = self.res_all_norm1(x)
-        # # y = self.res_all_attention(y,y,y,attn_bias) # attention 残差
-        # # y = self.res_all_ffn(y)   # ffn 残差
-        # y = self.res_all_attention1(x, x, x, attn_bias)
-        # y = self.res_all_dropout1(y)
-        # x = x + y
-
-        # x = self.res_all_norm12(x)
-        # # y = self.res_all_attention(y,y,y,attn_bias) # attention 残差
-        # # y = self.res_all_ffn(y)   # ffn 残差
-        # y = self.res_all_attention12(x, x, x, attn_bias)
-        # y = self.res_all_dropout12(y)
-        # x = x + y
-
-        # 前向 ffn 64*3 - 64*2
-        # if with extro feature, using this to projection the dim 
-        # x = self.linear_proj(x)
-        # y = self.ff(self.ln_2(y)) + y
-        # x = self.linear_dropout(y)
-
-        # 残差3 attention 64 -- 64
-        # y = self.res_all_norm2(x)
-        # y = self.res_all_attention2(x, x, x, attn_bias)  # attention 残差
-        # y = self.res_all_ffn2(y)  # ffn 残差
-        # y = self.res_all_dropout2(y)
-        # x = x + y
 
         # output projection
         x = self.out_proj_old(x)
